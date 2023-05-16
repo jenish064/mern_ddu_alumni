@@ -7,6 +7,7 @@ app.use(express.json());
 app.use(cors());
 
 const AlumniDocument = require("./database/model");
+const StudentDocument = require("./database/model");
 
 const PORT = 5000;
 
@@ -21,11 +22,9 @@ mongoose.connect(
 
 // })
 
-app.post("/register", async (req, res) => {
+app.post("/register/Alumni", async (req, res) => {
   const requestData = req.body.registrationDetails;
-
   console.log("reqData:::", requestData);
-
   const currentUser = new AlumniDocument({
     name: requestData.name,
     email: requestData.email,
@@ -34,18 +33,29 @@ app.post("/register", async (req, res) => {
     designation: requestData.designation,
     city: requestData.city,
   });
-
   try {
     await currentUser.save();
-    // console.log(
-    //   "I am post request, from the front end:::",
-    //   requestData
-    // );
-    // res.status(200).send("added!");
   } catch (error) {
     console.log("error:", error);
   }
 });
+app.post("/register/Student", async (req, res) => {
+  const requestData = req.body.registrationDetails;
+  console.log("reqData:::", requestData);
+  const currentUser = new StudentDocument({
+    name: requestData.name,
+    email: requestData.email,
+    batch: requestData.batch,
+    dob: requestData.dob,
+    studentId: requestData.studentId,
+  });
+  try {
+    await currentUser.save();
+  } catch (error) {
+    console.log("error:", error);
+  }
+});
+
 app.listen(PORT, () => {
   console.log("running on PORT:", PORT, "...");
 });

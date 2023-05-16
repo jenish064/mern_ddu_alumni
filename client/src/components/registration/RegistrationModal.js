@@ -129,16 +129,19 @@ function RegistrationModal(props) {
   };
 
   const handleDone = () => {
-    Axios.post("http://localhost:5000/register", {
-      registrationDetails:
-        state.alumniOrStudent === "Alumni"
-          ? state.alumniFormFields
-          : state.alumniOrStudent === "Student"
-          ? state.studentFormFields
-          : "Data not added!",
-    }).then((e) => {
-      console.log("handle submit", e);
-    });
+    if (state.alumniOrStudent) {
+      Axios.post(`http://localhost:5000/register/${state.alumniOrStudent}`, {
+        registrationDetails:
+          state.alumniOrStudent === "Alumni"
+            ? state.alumniFormFields
+            : state.alumniOrStudent === "Student"
+            ? state.studentFormFields
+            : "Data not added!",
+      }).then((e) => {
+        console.log("handle submit", e);
+      });
+    }
+
     props.openRegister(false);
     message.success("Processing complete!");
     setCurrent(0);

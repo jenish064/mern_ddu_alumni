@@ -6,14 +6,19 @@ import photo from "../assets/gears.gif";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import RegistrationModal from "./registration/RegistrationModal";
+import LoginModal from "./login/LoginModal";
 
 function Card() {
   const [state, setState] = useSetState({
     onRegister: false,
+    onLogin: false,
   });
 
   const openRegister = (bool) => {
     setState({ onRegister: bool });
+  };
+  const openLogin = (bool) => {
+    setState({ onLogin: bool });
   };
   return (
     <div className="card">
@@ -27,6 +32,9 @@ function Card() {
         <Button className="btn" onClick={() => openRegister(true)}>
           Register
         </Button>
+        <Button className="btn" onClick={() => openLogin(true)}>
+          Login
+        </Button>
         <Modal
           title="Registration"
           open={state.onRegister}
@@ -39,6 +47,19 @@ function Card() {
           maskClosable={false}
         >
           <RegistrationModal openRegister={openRegister} />
+        </Modal>
+        <Modal
+          title="Login"
+          open={state.onLogin}
+          footer={null}
+          onCancel={() => {
+            openLogin(false);
+          }}
+          closeIcon={<FontAwesomeIcon icon={faXmark} />}
+          destroyOnClose
+          maskClosable={false}
+        >
+          <LoginModal openRegister={openRegister} />
         </Modal>
       </div>
 
