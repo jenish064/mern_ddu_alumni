@@ -53,5 +53,4 @@ const studentSchema = new mongoose.Schema({
 const AlumniDocument = mongoose.model("alumniData", alumniSchema);
 const StudentDocument = mongoose.model("studentData", studentSchema);
 
-module.exports = AlumniDocument;
-module.exports = StudentDocument;
+module.exports = { AlumniDocument, StudentDocument };

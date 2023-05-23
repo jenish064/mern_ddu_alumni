@@ -6,8 +6,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const AlumniDocument = require("./database/model");
-const StudentDocument = require("./database/model");
+const { AlumniDocument, StudentDocument } = require("./database/model");
 
 const PORT = 5000;
 
@@ -35,6 +34,7 @@ app.post("/register/Alumni", async (req, res) => {
   });
   try {
     await currentUser.save();
+    return res.json(201);
   } catch (error) {
     console.log("error:", error);
   }
@@ -51,6 +51,7 @@ app.post("/register/Student", async (req, res) => {
   });
   try {
     await currentUser.save();
+    return res.json(201);
   } catch (error) {
     console.log("error:", error);
   }
